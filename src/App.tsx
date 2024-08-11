@@ -1,15 +1,28 @@
-import { BubbleMenu, EditorProvider, FloatingMenu } from '@tiptap/react';
+import { EditorProvider } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 
 const content = '<p>Hello World!</p>';
 
-const extensions = [StarterKit];
+const extensions = [
+  // https://tiptap.dev/docs/editor/extensions/functionality/starterkit
+  // The starter-kit only enables the following extensions:
+  // - Nodes: Document, Paragraph, Text, HardBreak
+  // - Extensions: Dropcursor, Gapcursor, History
+  StarterKit.configure({
+    blockquote: false,
+    bold: false,
+    bulletList: false,
+    code: false,
+    codeBlock: false,
+    heading: false,
+    horizontalRule: false,
+    italic: false,
+    listItem: false,
+    orderedList: false,
+    strike: false,
+  }),
+];
 
 export function App(): React.ReactElement {
-  return (
-    <EditorProvider content={content} extensions={extensions}>
-      <FloatingMenu editor={null}>This is the floating menu</FloatingMenu>
-      <BubbleMenu editor={null}>This is the bubble menu</BubbleMenu>
-    </EditorProvider>
-  );
+  return <EditorProvider content={content} extensions={extensions} />;
 }
