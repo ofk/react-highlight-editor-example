@@ -1,0 +1,17 @@
+.mention {
+  color: blue;
+  background-color: lightblue;
+  padding: 0.25rem;
+}
+
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  overflow: auto;
+}
+
+.dropdown-menu button {
+  align-items: center;
+  width: 100%;
+}
