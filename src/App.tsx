@@ -1,9 +1,15 @@
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 
+import { Plaintext } from './plaintext';
+
 const content = '<p>Hello World!</p>';
 
-const extensions = [
+const editorExtensions = [
+  Plaintext.configure({
+    transformCopiedText: true,
+    transformPastedText: true,
+  }),
   // https://tiptap.dev/docs/editor/extensions/functionality/starterkit
   // The starter-kit only enables the following extensions:
   // - Nodes: Document, Paragraph, Text, HardBreak
@@ -24,12 +30,15 @@ const extensions = [
 ];
 
 export function App(): React.ReactElement {
-  const editor = useEditor({ content, extensions });
+  const editor = useEditor({ content, extensions: editorExtensions });
 
   return (
     <div>
       <EditorContent editor={editor} />
-      <pre style={{ whiteSpace: 'pre-wrap' }}>{editor?.getHTML()}</pre>
+      <pre style={{ whiteSpace: 'pre-wrap' }}>
+        {// eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        editor?.storage.plaintext.getPlaintext()}
+      </pre>
     </div>
   );
 }
