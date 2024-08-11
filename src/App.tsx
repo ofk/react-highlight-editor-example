@@ -1,4 +1,4 @@
-import { EditorProvider } from '@tiptap/react';
+import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 
 const content = '<p>Hello World!</p>';
@@ -24,5 +24,12 @@ const extensions = [
 ];
 
 export function App(): React.ReactElement {
-  return <EditorProvider content={content} extensions={extensions} />;
+  const editor = useEditor({ content, extensions });
+
+  return (
+    <div>
+      <EditorContent editor={editor} />
+      <pre style={{ whiteSpace: 'pre-wrap' }}>{editor?.getHTML()}</pre>
+    </div>
+  );
 }
