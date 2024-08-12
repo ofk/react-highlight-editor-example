@@ -8,7 +8,7 @@ export const MentionList = React.forwardRef<
   },
   {
     command: (props: { id: string }) => void;
-    items: string[];
+    items: { id: string; label: string }[];
   }
 >((props, ref) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -16,8 +16,9 @@ export const MentionList = React.forwardRef<
   const selectItem = (index: number): void => {
     const item = props.items[index];
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (item) {
-      props.command({ id: item });
+      props.command({ id: item.id });
     }
   };
 
@@ -63,15 +64,14 @@ export const MentionList = React.forwardRef<
       {props.items.length ? (
         props.items.map((item, index) => (
           <button
-            // eslint-disable-next-line react/no-array-index-key
-            key={index}
+            key={item.id}
             className={index === selectedIndex ? 'is-selected' : ''}
             onClick={() => {
               selectItem(index);
             }}
             type="button"
           >
-            {item}
+            {item.label}
           </button>
         ))
       ) : (

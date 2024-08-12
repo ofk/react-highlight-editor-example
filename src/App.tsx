@@ -7,38 +7,23 @@ import { suggestion } from './suggestion';
 
 const content = `
   <p>Hi everyone! Don’t forget the daily stand up at 8 AM.</p>
-  <p><span data-type="mention" data-id="Jennifer Grey"></span> Would you mind to share what you’ve been working on lately? We fear not much happened since Dirty Dancing.
-  <p><span data-type="mention" data-id="Winona Ryder"></span> <span data-type="mention" data-id="Axl Rose"></span> Let’s go through your most important points quickly.</p>
-  <p>I have a meeting with <span data-type="mention" data-id="Christina Applegate"></span> and don’t want to come late.</p>
+  <p><span data-type="mention" data-id="b1.v1"></span> Would you mind to share what you’ve been working on lately? We fear not much happened since Dirty Dancing.
+  <p><span data-type="mention" data-id="b2.v1"></span> <span data-type="mention" data-id="b3.v1"></span> Let’s go through your most important points quickly.</p>
+  <p>I have a meeting with <span data-type="mention" data-id="v5.v1"></span> and don’t want to come late.</p>
   <p>– Thanks, your big boss</p>
 `;
 
 const items = [
-  'Lea Thompson',
-  'Cyndi Lauper',
-  'Tom Cruise',
-  'Madonna',
-  'Jerry Hall',
-  'Joan Collins',
-  'Winona Ryder',
-  'Christina Applegate',
-  'Alyssa Milano',
-  'Molly Ringwald',
-  'Ally Sheedy',
-  'Debbie Harry',
-  'Olivia Newton-John',
-  'Elton John',
-  'Michael J. Fox',
-  'Axl Rose',
-  'Emilio Estevez',
-  'Ralph Macchio',
-  'Rob Lowe',
-  'Jennifer Grey',
-  'Mickey Rourke',
-  'John Cusack',
-  'Matthew Broderick',
-  'Justine Bateman',
-  'Lisa Bonet',
+  { id: 'b1.v1', label: 'Start#lorem' },
+  { id: 'b1.v2', label: 'Start#ipsum' },
+  { id: 'b2.v1', label: 'Block#string' },
+  { id: 'b2.v2', label: 'Block#number' },
+  { id: 'b2.v3', label: 'Block#boolean' },
+  { id: 'b3.v1', label: 'Other#number' },
+  { id: 'b3.v2', label: 'Other#string' },
+  { id: 'b3.v3', label: 'Other#boolean' },
+  { id: 'b4.v1', label: 'Finish#foo' },
+  { id: 'b4.v2', label: 'Finish#bar' },
 ];
 
 const extensions = [
@@ -62,6 +47,14 @@ const extensions = [
   Mention.configure({
     HTMLAttributes: {
       class: 'mention',
+    },
+    renderHTML({ node, options }) {
+      console.log(node, this, options);
+      return [
+        'span',
+        { 'data-type': 'mention', ...options.HTMLAttributes },
+        `${node.attrs.label ?? node.attrs.id ?? ''}`,
+      ];
     },
     suggestion,
   }),

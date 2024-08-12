@@ -9,8 +9,8 @@ import { MentionList } from './MentionList.jsx';
 
 export const suggestion: MentionOptions['suggestion'] = {
   items: ({ editor, query }) =>
-    ((editor.storage.suggestionItems ?? []) as string[])
-      .filter((item) => item.toLowerCase().startsWith(query.toLowerCase()))
+    ((editor.storage.suggestionItems ?? []) as { id: string; label: string }[])
+      .filter((item) => item.label.toLowerCase().startsWith(query.toLowerCase()))
       .slice(0, 5),
   render: () => {
     let component: ReactRenderer;
