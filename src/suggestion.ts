@@ -8,34 +8,8 @@ import tippy from 'tippy.js';
 import { MentionList } from './MentionList.jsx';
 
 export const suggestion: MentionOptions['suggestion'] = {
-  items: ({ query }) =>
-    [
-      'Lea Thompson',
-      'Cyndi Lauper',
-      'Tom Cruise',
-      'Madonna',
-      'Jerry Hall',
-      'Joan Collins',
-      'Winona Ryder',
-      'Christina Applegate',
-      'Alyssa Milano',
-      'Molly Ringwald',
-      'Ally Sheedy',
-      'Debbie Harry',
-      'Olivia Newton-John',
-      'Elton John',
-      'Michael J. Fox',
-      'Axl Rose',
-      'Emilio Estevez',
-      'Ralph Macchio',
-      'Rob Lowe',
-      'Jennifer Grey',
-      'Mickey Rourke',
-      'John Cusack',
-      'Matthew Broderick',
-      'Justine Bateman',
-      'Lisa Bonet',
-    ]
+  items: ({ editor, query }) =>
+    ((editor.storage.suggestionItems ?? []) as string[])
       .filter((item) => item.toLowerCase().startsWith(query.toLowerCase()))
       .slice(0, 5),
   render: () => {

@@ -1,6 +1,7 @@
 import Mention from '@tiptap/extension-mention';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import { useEffect } from 'react';
 
 import { suggestion } from './suggestion';
 
@@ -11,6 +12,34 @@ const content = `
   <p>I have a meeting with <span data-type="mention" data-id="Christina Applegate"></span> and don’t want to come late.</p>
   <p>– Thanks, your big boss</p>
 `;
+
+const items = [
+  'Lea Thompson',
+  'Cyndi Lauper',
+  'Tom Cruise',
+  'Madonna',
+  'Jerry Hall',
+  'Joan Collins',
+  'Winona Ryder',
+  'Christina Applegate',
+  'Alyssa Milano',
+  'Molly Ringwald',
+  'Ally Sheedy',
+  'Debbie Harry',
+  'Olivia Newton-John',
+  'Elton John',
+  'Michael J. Fox',
+  'Axl Rose',
+  'Emilio Estevez',
+  'Ralph Macchio',
+  'Rob Lowe',
+  'Jennifer Grey',
+  'Mickey Rourke',
+  'John Cusack',
+  'Matthew Broderick',
+  'Justine Bateman',
+  'Lisa Bonet',
+];
 
 const extensions = [
   // https://tiptap.dev/docs/editor/extensions/functionality/starterkit
@@ -40,6 +69,12 @@ const extensions = [
 
 export function App(): React.ReactElement {
   const editor = useEditor({ content, extensions });
+
+  useEffect(() => {
+    if (editor) {
+      editor.storage.suggestionItems = items;
+    }
+  }, [editor]);
 
   return (
     <div>
